@@ -963,9 +963,352 @@ public class Customer{
 * 不属于JVM虚拟机运行时数据区的一部分。JDK8 云空间在直接内存（本地内存）。
 * 属于java堆外的，直接向系统申请的内存区间。
 * 访问速度由于Java堆，读写性能高。<span style='color:pink'>读写频繁考虑使用直接内存</span>
-* JAVA NIO库允许使用直接内存，用于数据缓冲
+* 分配回收成本高。不受JVM内存回收管理 
 
-![image-20210316091340848](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210316091340848.png)
+![image-20210316091340848](D:\Documents\young\JVM\JVMLearning-main\picture\image-20210316091340848.png)
 
-![image-20210316091420240](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210316091420240.png)
+![image-20210316091420240](D:\Documents\young\JVM\JVMLearning-main\picture\image-20210316091420240.png)
+
+设置直接内存大小 ： -XX:DirectMemorySize / 默认与 -Xmx 一样
+
+## 十四、执行引擎
+
+![image-20210316122049423](D:\Documents\young\JVM\picture\image-20210316122049423.png)
+
+#### 1、解释器VS编译器
+
+**解释器：**一条一条解释执行代码。
+
+**编译器：**将整个源代码都翻译为机器码（二进制，且每个系统的二进制码不一致），执行时不需要编译器，可以直接在支持目标代码的平台上运行，如此执行效率比较高。
+
+#### 2、JIT
+
+JIT Hotspot中的分类
+
+* -Client : 使用 C1 编译器，对字节码进行简单的优化，耗时短。
+* -Server ： 64位机器默认的是 C2 编译器，耗时长，激进优化。
+
+C1优化策略：
+
+* 方法内联：将引用的函数代码编译到引用点处，减少栈帧生成，减少参数传递以及跳转过程。
+* 去虚拟化：对唯一的实现类进行内联
+* 冗余消除：运行时把一些不会执行的代码消除
+
+C2优化策略（基于逃逸分析）--c++：
+
+* 栈上分配：将未逃逸的对象分配在栈中。
+* 标量替换：用标量替换聚合对象的属性值。
+* 同步消除：清楚同步操作，synchronized。
+
+JVM 主要任务 加载字节码文件。但是字节码文件不能直接运行于OS上，执行引擎的任务将字节码解释/编译到对应的平台上，转化为机器指令。
+
+![image-20210316123108116](D:\Documents\young\JVM\picture\image-20210316123108116.png)
+
+<span style='color:pink;font-size:18px;'>什么时解释器?什么JIT 编译器？</span>
+
+<span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>答: JVM启动时，根据预定义的规范对字节码文件逐条的解释，将字节码翻译为机器指令。JIT 就是虚拟机直接将源代码编译成本地平台相关的机器指令。</span>
+
+<span style='color:pink;font-size:18px;'>为什么java是半编译半解释性语言？</span>
+
+<span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>答: JVM执行代码时，通常会把解释执行和编译执行二者结合</span>
+
+#### <span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>3、 热点代码</span>
+
+* 一个被多次调用的方法，或者方法中多次被调用的循环体。称为热点代码。
+* 对于循环体出发的JIT，编译器会以整个方法座位编译对象，由于这种编译方法发生在方法执行过程中，又称之为栈上替换。
+* 热点阈值由热点探测功能实现，Hotspot VM 采用基于计数式的热点探测。（采样热点探测）
+  1. 方法调用计数器：统计方法被调用次数。Client 1500次，Server 10000 超过阈值触发JIT。 修改 -XX:CompileThreadhold
+  2. 回边计数器：循环体执行次数
+
+<img src="D:\Documents\young\JVM\picture\image-20210316140620840.png" alt="image-20210316140620840" style="zoom:67%;" />
+
+* **热度衰减：**不加限制所有方法都能成为热点代码。所以统计一段时间内方法被调用的次数。当超过时间限制，次数未超过阈值，则该方法的调用计数器就会减少一半,称为热度衰减，半衰周期。 -XX:UseCounterDecay
+
+<img src="D:\Documents\young\JVM\picture\image-20210316141034281.png" alt="image-20210316141034281" style="zoom:67%;" />
+
+#### 4、总结
+
+JDK10以后出了新的编译器 Graal 即时编译器
+
+AOT 编译器， 在程序运行之前将字节码转化位机器码。
+
+AOT好处：不必等待即使编译器的预热，减少了JAVA 应用给人带来的第一次运行慢的体验。
+
+缺点：破坏了“一次编译，到处运行”，必须为每个硬件，os编译发行包。
+
+​	      降低了Java链接过程的动态性。
+
+## 十五、String Table
+
+#### 1、基本特性
+
+* String s1 = "czy"; // 字面量定义
+
+  String s2 = new String("czy"); //对象定义
+
+* String 声明为**final**不可被继承。
+
+* 实现了 Serializable（序列化，可以跨进程传输）, Comparable<String>, CharSequence 接口
+
+* String 在 **JDK8 之前使用 final char[ ] value**存储字符串 ，**JDK9 ,11 使用 byte[ ]** 底层。<span style='color:pink'>大部分对象都是存储拉丁文，而拉丁文使用 1 byte就可以存储，所以将 UTF-16 char（占两个字节）替换为 byte数组，外加 encoding-flag field (其他字符集)</span>
+
+* 不可变
+
+* 通过字面量的方式（区别于new）给字符串赋值，字符串值在字符串常量池中。
+
+* 字符串常量池（String pool）不会存储相同的字符串。
+
+  1. String 的 String Pool 是一个固定大小的String table，默认大小1009（JDK6）。若放进 String Pool 的 String 过多，造成hash冲突。导致链表长度过长。
+  2. JDK7 默认长60013. -XX:StringTableSize 设置默认长度。
+  3. JDK8 要求最小值是1009。
+
+#### 2、String内存分配 
+
+* Java中 8 种数据类型，以及String。为了提高访问速度，提供常量池。
+
+* 直接使用字面量声明的String对象会直接存储在常量池中。
+
+* intern方法存于常量池。
+
+* JDK 6 字符串常量池在永久代，JDK7将字符串常量池放在堆空间，JDK8 元空间，字符串常量在堆。
+
+* ![image-20210316201255989](D:\Documents\young\JVM\picture\image-20210316201255989.png)
+
+* ![image-20210316201359925](D:\Documents\young\JVM\picture\image-20210316201359925.png)
+
+  <span style='color:red;background:背景颜色;font-size:18px;font-family:字体;'>**问题：为什么StringTable 要调整？**</span>
+
+  <span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>答:  1.permSize（永久代）默认比较小  2. 永久代回收频率低</span>
+
+#### 3、基本操作
+
+```java
+public static void main(String[] args){
+    System.out.println("1");
+    System.out.println("2");
+    System.out.println("3");
+    //一下操作不会在常量池中创建一样的字符串，具有相同的unicode
+    System.out.println("1");
+    System.out.println("2");
+}
+```
+
+```java
+package JVM;
+
+public class Memory {
+    public static void main(String[] args) {
+        int i = 1;
+        Object obj = new Object();
+        Memory mem = new Memory();
+        mem.foo(obj);
+    }
+
+    private void foo(Object param) {
+        //这里的toString调用的是Objectde的，底层通过StringBuilder进行拼接，会在堆内存中new一个String对象，因此这时的字			符串常量池没字符串对象。str指向堆String对象
+        String str = param.toString();
+        System.out.println(str);
+    }
+}
+```
+
+![image-20210316205227289](D:\Documents\young\JVM\picture\image-20210316205227289.png)
+
+#### 4、字符串拼接原理
+
+1. 常量与常量拼接结果在常量池，原理是编译器优化。
+
+2. 常量池不存在相同常量。 
+
+3. 拼接中只要有一个是变量，结果就在堆（ 堆空间中除去常量池的区域）中。变量拼接原理是StringBuilder。
+
+4. 如果拼接的结果调用 intern() 则主动将常量池还没有的字符串对象放入池中，并返回此对象地址。
+
+   ```java
+   public void test4(){
+           String s1 = "a" + "b" + "c";   //拼接结果在常量池，等同于"abc",编译器优化
+           //一定在字符串常量池，因为s1的缘故常量池已经存在，将此地址返回给s2
+           String s2 = "abc";
+   
+           System.out.println(s1 == s2);         //true
+           System.out.println(s1.equals(s2));   //true
+       }
+   ```
+
+   ```java
+   public void test5(){
+           String s1 = "JavaEE";
+           String s2 = "hadoop";
+   
+           String s3 = "JavaEEhadoop";
+           String s4 = "JavaEE" + "hadoop"; //拼接直接存常量池，编译器优化
+           String s5 = s1 + "hadoop";
+           String s6 = "JavaEE" + s2;
+           String s7  = s1 + s2;
+   
+           System.out.println(s3 == s4);  //true 拼接直接存在常量池
+           //false 因为有变量，new String()了结果存在了字符串常量池之外的堆空间中
+           System.out.println(s3 == s5);
+           System.out.println(s3 == s6);  //false 同理
+           System.out.println(s3 == s7);  //false 同理
+   
+           System.out.println(s5 == s6);  //false
+           System.out.println(s5 == s7);  //false
+           System.out.println(s6 == s7);  //false
+   
+           //intern()在字符串常量池中是否存在该值，若存在则返回地址，不存在则在常量池加载一份，返回地址。
+           String s8 = s6.intern();
+           System.out.println(s3 == s8); //true
+       }
+   ```
+
+   
+
+   **底层原理：**
+
+   ```java
+   public void test3(){
+           String s1 = "a";
+           String s2 = "b";
+           String s3 = "a" + "b";
+           /*
+           * 如下s1 + s2的执行细节：
+           * 1. StringBuilder s = new StrinfBuilder();
+           * 2. s.append("a"); //从LV中取得"a"的地址，根据地址在字符串常量池中找到"a"
+           * 3. s.append("b");
+           * 4. s.toString(); ----> 约等于于new String
+           * */
+           String s4 = s1 + s2;
+           System.out.println(s3 == s1); //false
+       }
+   ```
+
+   <span style='color:pink'>JDK5.0之后引入 StringBuilder(线程不安全),   5.0之前 StringBuffer</span>
+
+   ```java
+   public void test4(){
+           final String s1 = "a";
+           final String s2 = "b";
+           String s3 = "a" + "b";
+   		//因为是常量引用，所以在编译期优化，非StringBuilder
+       	//final 修饰类方法，基本数据类型，引用数据类型结构式尽量使用
+           String s4 = s1 + s2;
+           System.out.println(s3 == s1); //true
+       }
+   ```
+
+   **拼接与append效率**
+
+   ```java
+   /*
+       * 1. append方式自始至终只有一个对象，而拼接方式不断地创建了StringBuiler，和String
+       * 2. 拼接创建了过多的对象，浪费空间，而且GC 花费时间
+       * 3. 改进空间： 在实际开发中，若基本确定String的长度不高于 highLevel，建议使用构造器
+       *    StringBuilder s = new StringBuilder(highlevel), 因为这样减少了频繁扩容的操作。
+       * */    
+   public void test6(){
+           long start = System.currentTimeMillis();
+   //        method1(100000);//3931
+           method2(100000);//0
+   
+           long end = System.currentTimeMillis();
+           System.out.println(end - start);
+       }
+   
+       private void method1(int highlevel) {
+           String src = "";
+           for(int i = 0; i < highlevel;i++){
+               src += "a"; //每次循环创建一个StringBuilder，还会创建String，因为src是变量
+           }
+       }
+   
+       private void method2(int i) {
+           StringBuilder sre = new StringBuilder("");
+           sre.append("a");
+       }
+   ```
+
+   append方式自始至终只有一个对象，而拼接方式不断地创建了StringBuiler，和String
+
+   * 2. 拼接创建了过多的对象，浪费空间，而且GC 花费时间
+
+   * 3. **改进空间**： 在实际开发中，若基本确定String的长度不高于 highLevel，建议使用构造器
+
+     StringBuilder s = new StringBuilder(highlevel), 因为这样减少了频繁扩容的操作。
+
+     
+
+#### 5、intern（）
+
+ 若不是双引号声明的对象，则可以使用 intern()， 从字符串常量池中判断是否存在，不存在放入常量池，存在返回 reference。
+
+**如何保证 字符串s 指向 字符串常量池？**
+
+* 字面量定义
+* 调用 intern()
+
+<span style='color:red;background:背景颜色;font-size:18px;font-family:字体;'>**问题 new String("ab") 创建了几个对象？：**</span>
+
+<span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>答:  两个，第一个new 在堆空间中创建，第二个对象在常量池中创建</span>
+
+```java
+    public void test8(){
+         /*  0 new #24 <java/lang/String> //在堆中创建对象
+             3 dup
+             4 ldc #14 <ab>  //在常量池中创建 "ab"，取出
+             6 invokespecial #26 <java/lang/String.<init>>
+             9 astore_1
+            10 return
+        */
+        String s1 = new String("ab");
+         /*
+            对象1 new StringBuilder()
+            对象2 new String("a")
+            对象3 常量池中的 "a"
+            调用append()
+            对象4 new String("b")
+            对象5 常量池中的"b"
+            
+            最后返回 toString()
+            深入： new Sring("ab")， toString() 字符串常量池中没有生成"ab" 有疑问？
+        * */
+        String str = new String("a") + new String("b");
+    }
+```
+
+```java
+ // intern 方法
+    public void test7(){
+        String s = new String("1");
+        s.intern();
+        String s2 = "1";  //常量池中的引用
+        //JDK6 false
+        //JDK78 false
+        /*
+        new String("1") 堆空间创建对象"1"，常量池中"1" ,s 引用指向堆中对象引用
+        s.intern() 在常量池中存在 "1"
+        * */
+        System.out.println(s == s2);
+
+        String s3 = new String("1") + new String("1");
+        //上行代码执行执行结束后，常量池不存在"11"
+        s3.intern(); // 在字符串常量池中生成 "11"，JDK6中创建新的对象，新的地址。
+                    // JDK78中， 字符串常量池在堆空间，
+                    // new String("11")存在，为了节省空间，常量池中"11"记录new String("11")地址
+        String s4 = "11";  //使用上一行代码在常量池中生成的"11 "地址
+        //JDK6 false
+        //JDK78 true
+        System.out.println(s3 == s4);
+    }
+```
+
+
+
+![image-20210316222831922](D:\Documents\young\JVM\picture\image-20210316222831922.png)
+
+![image-20210316223820954](D:\Documents\young\JVM\picture\image-20210316223820954.png)
+
+#### 6、StringTable垃圾回收
+
+
 
