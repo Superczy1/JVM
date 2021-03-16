@@ -43,7 +43,7 @@
 
 
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308145642916.png" alt="image-20210308145642916" style="zoom: 67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308145642916.png" alt="image-20210308145642916" style="zoom: 67%;" />
 
 * 第一次编译生成 java 字节码 .class 文件。
 
@@ -90,7 +90,7 @@
 
 #### 1、内存结构概述
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308203005752.png" alt="image-20210308203005752" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308203005752.png" alt="image-20210308203005752" style="zoom:67%;" />
 
 
 
@@ -102,20 +102,20 @@
 
 #### 2、类加载过程和加载器
 
-![image-20210308204004998](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308204004998.png)
+![image-20210308204004998](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308204004998.png)
 
 * 类加载器子系统负责从文件系统或者网络中加载 class 文件， class文件再文件开头有标识 **CA FE BA BE** 
 * ClassLoader 只负责加载类，是否可行，由执行引擎判断
 * 加载的类信息存放在 ：**方法区**， 方法区还会存储常量池信息。
 * 自定义类使用 **系统类加载器** 加载
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308212002443.png" alt="image-20210308212002443" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308212002443.png" alt="image-20210308212002443" style="zoom:67%;" />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308212052267.png" alt="image-20210308212052267"  />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308212052267.png" alt="image-20210308212052267"  />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308212034327.png" alt="image-20210308212034327"  />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308212034327.png" alt="image-20210308212034327"  />
 
-![image-20210308212516215](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210308212516215.png)
+![image-20210308212516215](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210308212516215.png)
 
 **A .加载 .class 文件的方式**
 
@@ -130,10 +130,10 @@
 **B. Linking(链接)**
 
 1. 验证：验证 Class 文件中的字节流符合 JVM 的规范，保证类的加载正确性
-          	四种验证：**文件格式验证，元数据验证，字节码验证，符号引用验证**
+   	四种验证：**文件格式验证，元数据验证，字节码验证，符号引用验证**
 2. 准备：为类变量分配内存设置为默认值，即零。
-              这里不包含 **final** 修饰的 常量值， final 修饰的 在编译时 就初始化了
-              这里也不能为实例变量实例化，实例变量随着对象分配 java 堆中
+       这里不包含 **final** 修饰的 常量值， final 修饰的 在编译时 就初始化了
+       这里也不能为实例变量实例化，实例变量随着对象分配 java 堆中
 3. 解析：将常量池内的符号引用转化为直接引用
 
 **C. 初始化**
@@ -169,7 +169,7 @@ public class CLASSInit{
 
 #### 3、类加载器的分类
 
-![image-20210309092450094](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309092450094.png)
+![image-20210309092450094](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309092450094.png)
 
 * JVM 支持两种类加载，引导类加载器（Bootstrap ClassLoader），自定义类加载器。 
 * 凡是继承于 ClassLoader 的类都为自定义类加载器， Extension ， System Classloader 也是。
@@ -206,7 +206,7 @@ public class CLASSInit{
 
 #### 4、 双亲委派机制
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309120754583.png" alt="image-20210309120754583" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309120754583.png" alt="image-20210309120754583" style="zoom:67%;" />
 
 **原理：**
 
@@ -216,9 +216,9 @@ public class CLASSInit{
 
 [双亲委派的例子，String类的加载]: https://www.bilibili.com/video/BV1PJ411n7xZ?p=35&amp;spm_id_from=pageDriver
 
-![image-20210309122337696](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309122337696.png)
+![image-20210309122337696](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309122337696.png)
 
-![image-20210309122438384](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309122438384.png)
+![image-20210309122438384](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309122438384.png)
 
 因为 是双亲委派机制，所以会先在父类类加载器中加载，会优先加载 系统中的核心类 String 而不是自定义的类
 
@@ -227,7 +227,7 @@ public class CLASSInit{
 * 避免了类的重复加载
 * 保护了程序安全，防止核心的API被随意的篡改
 
-![image-20210309125533422](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309125533422.png)
+![image-20210309125533422](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309125533422.png)
 
 解释，SPI 核心类在 引导类加载器中加载
 
@@ -261,11 +261,11 @@ public class CLASSInit{
 
 ## 七、运行时数据区
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309173040427.png" alt="image-20210309173040427" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309173040427.png" alt="image-20210309173040427" style="zoom:67%;" />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309173305854.png" alt="image-20210309173305854" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309173305854.png" alt="image-20210309173305854" style="zoom:67%;" />
 
-![image-20210311163018429](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210311163018429.png)
+![image-20210311163018429](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210311163018429.png)
 
 JVM 定义了若干运行时的数据区，其中一些会随着虚拟机的创建而创建，生命周期和JVM一样，另外一些是与线程的生命周期一样
 
@@ -281,7 +281,7 @@ JVM 定义了若干运行时的数据区，其中一些会随着虚拟机的创�
 
 #### 1、PC寄存器 （PC Register）
 
-![](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210311163124315.png)
+![](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210311163124315.png)
 
 **程序计数器：** 存储指令下一条指令的地址，即即将要执行的指令代码。由执行引擎读取下一条指令。
 
@@ -304,7 +304,7 @@ public class PCRegister {
 }
 ```
 
-![image-20210309200025640](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309200025640.png)
+![image-20210309200025640](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309200025640.png)
 
 <span style='color:red;background:背景颜色;font-size:18px;font-family:字体;'>**问题：使用PC寄存器存储字节码指令地址有什么用？为什么使用PC寄存器记录当前线程执行地址？**</span>
 
@@ -314,7 +314,7 @@ public class PCRegister {
 
 <span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>答: 因为PC寄存器如果公有，则会产生错误</span>
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309212228870.png" alt="image-20210309212228870" style="zoom: 50%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309212228870.png" alt="image-20210309212228870" style="zoom: 50%;" />
 
 <span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>若线程共有PC寄存器，则在线程1 执行被线程2 抢占之后 PC 寄存的值会变为 5， 若这是线程3抢占了 线程2 则又被修改为 7， 再切换为线程 1 就不是 5 了。只有每个线程独自拥有 PC 寄存器 才不会冲突</span>
 
@@ -322,7 +322,7 @@ public class PCRegister {
 
 #### 2、虚拟机栈
 
-![image-20210311162947341](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210311162947341.png)
+![image-20210311162947341](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210311162947341.png)
 
 **内存中的栈与堆：** 栈是运行时的单位，堆是存储单位。
 
@@ -338,7 +338,7 @@ public class PCRegister {
 * JVM 栈中只有出栈，入栈操作。
 * 虚拟机栈存于 **OOM中，不存在 GC**
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210309215456856.png" alt="image-20210309215456856" style="zoom: 67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210309215456856.png" alt="image-20210309215456856" style="zoom: 67%;" />
 
 <span style='color:red;background:背景颜色;font-size:18px;font-family:字体;'>**问题：**虚拟机栈中可能出现的异常：怎么设置栈的大小</span>
 
@@ -407,8 +407,8 @@ public class PCRegister {
        }
        ```
 
-       <img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210310120719990.png" alt="image-20210310120719990" style="zoom: 67%;" />
-     
+       <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210310120719990.png" alt="image-20210310120719990" style="zoom: 67%;" />
+
   6. LV 是重要的垃圾回收根节点，只要被局部变量表中直接或者间接引用的对象不会被回收。
 
 * **操作数栈**（表达式栈 /  Operand Stack）
@@ -416,7 +416,7 @@ public class PCRegister {
   1. 使用数组实现。当方法开始执行，栈被创建，并且是空的，但是大小是固定的（编译时就确定了，且无法改变）。**虽然用数组实现，但是不能使用索引访问，只能出栈入栈访问。**
   2. 栈中的数据 32 位 占一个栈的深度，64位站两个。
   3. 在方法执行时，根据字节码指令，往栈中写入或提取数据。
-     <img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210310135435857.png" alt="image-20210310135435857" style="zoom:50%;" />
+     <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210310135435857.png" alt="image-20210310135435857" style="zoom:50%;" />
   4. java **JVM 执行引擎 基于操作数栈执行对数据的操作**。
   5. **作用：**保存计算的中间结果，同时作为计算过程中变量的临时存储空间。
   6. 若被调用的方法有返回值，其返回值会被压入当前栈帧的操作数栈中，并更新PC寄存器的下一条指令。
@@ -431,7 +431,7 @@ public class PCRegister {
 
   即直接链接到方法区中的，运行常量池中的方法引用，就可以通过引用调用对应的方法，节省空间。
 
-  ![image-20210310224443738](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210310224443738.png)
+  ![image-20210310224443738](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210310224443738.png)
 
   <span style='color:red;background:背景颜色;font-size:18px;font-family:字体;'>**问题：为什么需要常量池？**</span>
 
@@ -446,11 +446,11 @@ public class PCRegister {
 
 * 一些附加信息
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210310100538185.png" alt="image-20210310100538185" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210310100538185.png" alt="image-20210310100538185" style="zoom:67%;" />
 
 #### 3、本地方法栈
 
-![image-20210311163111143](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210311163111143.png)
+![image-20210311163111143](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210311163111143.png)
 
 java虚拟机栈管理 java 方法调用。 本地方法栈，管理本地方法的调用。
 
@@ -550,7 +550,7 @@ java虚拟机栈管理 java 方法调用。 本地方法栈，管理本地方法
 
 #### 1、核心概述
 
-![image-20210311163111143](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210311163111143.png)
+![image-20210311163111143](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210311163111143.png)
 
 * 一个 JVM 实例对应着一个堆内存，是 Java 内存管理的核心区域
 
@@ -566,7 +566,7 @@ java虚拟机栈管理 java 方法调用。 本地方法栈，管理本地方法
 
 * 方法结束后，堆中的对象不会马上移除，仅仅在垃圾收集的时候才会被移除。
 
-  <img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210311204622915.png" alt="image-20210311204622915" style="zoom: 67%;" />
+  <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210311204622915.png" alt="image-20210311204622915" style="zoom: 67%;" />
 
   
 
@@ -597,11 +597,11 @@ java虚拟机栈管理 java 方法调用。 本地方法栈，管理本地方法
 
 * 一类生命周期较短，类的对象创建销亡的很迅速
 * 另一类生命周期较长。
-  ![image-20210312230627151](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210312230627151.png)
+  ![image-20210312230627151](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210312230627151.png)
 
 **设置新生代，老年代的大小：** <span style='color:yellow'>默认 -XX:NewRation=2</span>, 表示老年代/新生代 = 2（可修改 ）
 
-![image-20210312232120855](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210312232120855.png)
+![image-20210312232120855](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210312232120855.png)
 
 就是新生代的 eden区 和1区和2区的比例 8：1：1
 
@@ -613,29 +613,29 @@ java虚拟机栈管理 java 方法调用。 本地方法栈，管理本地方法
 
 #### 4、 图解对象分配过程
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313080159620.png" alt="image-20210313080159620" style="zoom: 80%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313080159620.png" alt="image-20210313080159620" style="zoom: 80%;" />
 
 **步骤1**：在 Eden 区满的时候，触发 MinorGC / YGC 回收 Eden 区和 Survival0 区。将不被回收的放入 S0，age =1。
 
 **注意：**幸存者区不会触发 MinorGC ，只有 Eden 区满了才会触发 YGC。
 
-​	<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313074540091.png" alt="image-20210313074540091" style="zoom:67%;" />
+​	<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313074540091.png" alt="image-20210313074540091" style="zoom:67%;" />
 
 **步骤2：** 在 GC 清空 Eden 区之后，Eden 区又满了，又调用 YGC，回收 Eden 与 S0 。
 
 ​			将 Eden 区中存活的对象放入 空的 Survival区（to区 / 谁空谁是to），同时将 S0 区中存活的对象也移动至to 区，age++。这样 S1 就存在对象，而S0成为了新的 to 区 / 空区。
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313075050519.png" alt="image-20210313075050519" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313075050519.png" alt="image-20210313075050519" style="zoom:67%;" />
 
 **步骤三：**当 Survival 区中某些对象的 age 达到 15 超过了 阈值，则把他转移至 老年代。
 
-![image-20210313075731233](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313075731233.png)
+![image-20210313075731233](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313075731233.png)
 
 <span style='color:yellow'>总结： 幸存者 S0， S1，复制之后有交换，谁空谁是to。</span>
 
 <span style='color:yellow'>关于垃圾回收，频繁的在新生代收集，很少在养老区收集，几乎不再永久区/元空间收集</span>。
 
-![image-20210313081642001](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313081642001.png)
+![image-20210313081642001](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313081642001.png)
 
 
 
@@ -712,7 +712,7 @@ GC 按照回收区域分为：部分收集（Partical GC），整堆收集（Ful
 * TLAB作为JVM内存分配的首选。
 * TLAB占用很小，只占Eden的 1%
 * 一旦在空间中TLAB分配失败，JVM 尝试加锁机制，直接在Eden
-* ![image-20210313105359738](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313105359738.png)
+* ![image-20210313105359738](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313105359738.png)
 
 #### 9、堆空间的参数设置
 
@@ -736,7 +736,7 @@ GC 按照回收区域分为：部分收集（Partical GC），整堆收集（Ful
 
 **-XX:HandlePromotionFailer：**是否启用分配担保
 
-![image-20210313151555943](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313151555943.png)
+![image-20210313151555943](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313151555943.png)
 
 #### 10、不分配在堆中对象的情况--代码优化
 
@@ -748,7 +748,7 @@ GC 按照回收区域分为：部分收集（Partical GC），整堆收集（Ful
 
   ​					一个方法的对象，被方法外部方法引用，则发生逃逸。
 
-  ![image-20210313173841217](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313173841217.png)
+  ![image-20210313173841217](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313173841217.png)
 
   逃逸分析的代码优化：
 
@@ -760,9 +760,9 @@ GC 按照回收区域分为：部分收集（Partical GC），整堆收集（Ful
 
   * 分离对象或者标量替换。将聚合量替换成标量
 
-    <img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313193113031.png" alt="image-20210313193113031" style="zoom:67%;" />
+    <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313193113031.png" alt="image-20210313193113031" style="zoom:67%;" />
 
-    <img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313193133857.png" alt="image-20210313193133857" style="zoom:67%;" />
+    <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313193133857.png" alt="image-20210313193133857" style="zoom:67%;" />
 
 **TaoBaoVM :** GCIH : 将生命周较长的对象从堆中移除，并且GC不能管理GCIH中的对象。 
 
@@ -770,15 +770,15 @@ GC 按照回收区域分为：部分收集（Partical GC），整堆收集（Ful
 
 #### 1、栈，堆，方法区的关系
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313195027608.png" alt="image-20210313195027608" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313195027608.png" alt="image-20210313195027608" style="zoom:67%;" />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313195228020.png" alt="image-20210313195228020" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313195228020.png" alt="image-20210313195228020" style="zoom:67%;" />
 
 ​                                         如果在方法中 new 的 person ，则 person 在java栈中，属于局部变量。
 
 ​										 new的对象放于堆空间中。
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210313195534736.png" alt="image-20210313195534736" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210313195534736.png" alt="image-20210313195534736" style="zoom:67%;" />
 
 #### 2、方法理解
 
@@ -833,21 +833,21 @@ JDK 8:   -XX:MetaSpaceSzie        Windows下默认21M
         * JVM 为每个已加载的类型（类或者接口）维护一个常量池，池中的数据通过索引访问
         * 运行时常量池包含多种不同的常量，包括编译器就明确的字面量，也包括运行期解析之后得到的方法或者字段引用，即真是地址。
 
-  <img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210314224135884.png" alt="image-20210314224135884" style="zoom:67%;" />
+  <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210314224135884.png" alt="image-20210314224135884" style="zoom:67%;" />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210314221621442.png" alt="image-20210314221621442" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210314221621442.png" alt="image-20210314221621442" style="zoom:67%;" />
 
 #### 5、方法区的举例
 
 #### 6、方法区的演变细节
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315104640717.png" alt="image-20210315104640717" style="zoom:67%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315104640717.png" alt="image-20210315104640717" style="zoom:67%;" />
 
-**<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315104951875.png" alt="image-20210315104951875" style="zoom:67%;" />**
+**<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315104951875.png" alt="image-20210315104951875" style="zoom:67%;" />**
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315105018178.png" alt="image-20210315105018178" style="zoom: 80%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315105018178.png" alt="image-20210315105018178" style="zoom: 80%;" />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315105051750.png" alt="image-20210315105051750" style="zoom:80%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315105051750.png" alt="image-20210315105051750" style="zoom:80%;" />
 
 #### 7、方法区的一些问题
 
@@ -874,11 +874,11 @@ JDK 7 放在堆中，JDK8 也放在堆中。
 
 ## 十一、运行时数据区总结
 
-![image-20210315115929650](C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315115929650.png)
+![image-20210315115929650](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315115929650.png)
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315120100279.png" alt="image-20210315120100279" style="zoom: 80%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315120100279.png" alt="image-20210315120100279" style="zoom: 80%;" />
 
-<img src="C:\Users\Young\AppData\Roaming\Typora\typora-user-images\image-20210315120136103.png" alt="image-20210315120136103" style="zoom:80%;" />
+<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210315120136103.png" alt="image-20210315120136103" style="zoom:80%;" />
 
 ## 十二、对象的实例化与内存布局访问定位
 
@@ -898,8 +898,8 @@ JDK 7 放在堆中，JDK8 也放在堆中。
 
   2. **为对象分配内存**
 
-     		* 堆空间，若内存规整，**指针碰撞**：指针后移，指针是区分空闲和非空闲的指针。**使用 Serial（串行）, ParNew（并行） 基于压缩算法带有compact过程的收集器时。指针碰撞**
-     		* 内存不规整：**空闲列表：**找到足够大的空间分配给对象。使用 **CMS这种基于 Mark-Sweep**的收集器，采用空闲列表。
+     * 堆空间，若内存规整，**指针碰撞**：指针后移，指针是区分空闲和非空闲的指针。**使用 Serial（串行）, ParNew（并行） 基于压缩算法带有compact过程的收集器时。指针碰撞**
+     * 内存不规整：**空闲列表：**找到足够大的空间分配给对象。使用 **CMS这种基于 Mark-Sweep**的收集器，采用空闲列表。
 
   3. **产生安全问题时**：
 
@@ -918,14 +918,24 @@ JDK 7 放在堆中，JDK8 也放在堆中。
 
 1. 对象头
 
-   *  运行时元数据： “ Mark Word”: 哈希码，GC分代年龄，锁状态标志，线程持有锁，偏向线程ID，偏向时间戳。 32为 32bit， 64位 64bit
-   * 类型指针：
+   *  运行时元数据： “ Mark Word ”: 哈希码，GC分代年龄，锁状态标志，线程持有锁，偏向线程ID，偏向时间戳。 32为 32bit， 64位 64bit
+   *  类型指针：确定该类的所属类型。
 
-2. 实例数据
+2. 实例数据：对象真正存储的有效信息，程序中所定义的字段内容。父类继承下来的字段，以及自己的字段。
 
-3. 对齐填充
+   ​		规则：1. 父类中定义的变量出现在子类之前    2. 相同宽度的字段被分配一起   3.  +XX:CompactFields设        置为true，子类变量可以插入到父类的间隙中。
 
-   
+3. 对齐填充：因为 hotspot 要求自动内存管理 对象起始地址必须是8字节的整数倍，任何对象大小必须是8字节的整数倍。 对象的大小设计成正好是8字节的倍数。
+
+   ```java
+   public class Customer{
+       public static void main(String args[]){
+           Customer cust = new Customee();
+       }
+   }
+   ```
+
+   ![image-20210316081909504](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210316081909504.png)
 
 #### 3、对象访问定位
 
