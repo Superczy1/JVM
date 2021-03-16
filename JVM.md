@@ -939,3 +939,33 @@ JDK 7 放在堆中，JDK8 也放在堆中。
 
 #### 3、对象访问定位
 
+```java
+public class Customer{
+    public static void main(String args[]){
+        Customer cust = new Customee();
+    }
+}
+```
+
+**在上面代码中 cust 存放于虚拟机栈中的局部变量表 LV中。怎么通过对象引用访问到对象的实例呢？**
+
+ <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210316084612958.png" alt="image-20210316084612958" style="zoom:67%;" />
+
+**栈帧中的引用记录了堆空间中的地址值。**
+
+**访问方式**
+
+1. 句柄访问：java 堆会划分一块空间作为 句柄池，reference存放的就是对象的句柄地址，句柄中包含了对象的示例数据与类型数据的具体地址。<span style='color:pink'>优点，在对象移动时只需要修改句柄地址就可以，不需要修改Reference 本身</span>
+2. 直接指针：reference 存放的就是对象地址。<span style='color:pink'>访问快，减少了一次指针指针定位</span>
+
+## 十三、直接内存
+
+* 不属于JVM虚拟机运行时数据区的一部分。JDK8 云空间在直接内存（本地内存）。
+* 属于java堆外的，直接向系统申请的内存区间。
+* 访问速度由于Java堆，读写性能高。<span style='color:pink'>读写频繁考虑使用直接内存</span>
+* JAVA NIO库允许使用直接内存，用于数据缓冲
+
+![image-20210316091340848](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210316091340848.png)
+
+![image-20210316091420240](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210316091420240.png)
+
