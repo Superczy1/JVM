@@ -1,6 +1,6 @@
 ## 十六、垃圾回收
 
-![image-20210317194847495](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210317194847495.png)
+![image-20210317194847495](.\picture\image-20210317194847495.png)
 
 #### 1、什么是垃圾
 
@@ -26,7 +26,7 @@
   2. 加减法增加了时间消耗
   3. **无法处理循环引用问题，所以java不使用该种方法，python使用**
 
-![image-20210317202349812](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210317202349812.png)
+![image-20210317202349812](.\picture\image-20210317202349812.png)
 
  **python是怎么解决的？**
 
@@ -95,7 +95,7 @@
 
 清除并不是真的置空，而是把清除的对象的地址保存在空闲列表里，下次新的对象加载时，判断空间是否足够，够就存放。
 
-![image-20210317224448236](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210317224448236.png)
+![image-20210317224448236](.\picture\image-20210317224448236.png)
 
 #### 7、清除阶段：复制算法（Copying）
 
@@ -113,7 +113,7 @@
    * 当内存中垃圾对象过少的话，复制算法效率低。
    * 用于新生代
 
-![image-20210317231805372](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210317231805372.png)
+![image-20210317231805372](.\picture\image-20210317231805372.png)
 
 #### 8、清除阶段：标记-压缩算法（Mark compat）
 
@@ -125,9 +125,9 @@
 4. 优点：没有复制算法空间减半的代价
 5. 缺点：效率低于复制算法；移动对象时对象被其他对象引用还需要调整地址；移动过程中需要 STW
 
-![image-20210318085617527](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318085617527.png)
+![image-20210318085617527](.\picture\image-20210318085617527.png)
 
-![image-20210318090802730](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318090802730.png)
+![image-20210318090802730](.\picture\image-20210318090802730.png)
 
 #### 9、分代收集
 
@@ -148,7 +148,7 @@
 
 **分区算法**：将大的区域分成很多小块，为了减少 STW 的停顿时间。每个小区间独立回收。
 
-![image-20210318092653605](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318092653605.png)
+![image-20210318092653605](.\picture\image-20210318092653605.png)
 
 ## 十七、垃圾回收的概念
 
@@ -178,7 +178,7 @@
 
 内存泄漏可能导致 OOM
 
-![image-20210318101324973](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318101324973.png)
+![image-20210318101324973](.\picture\image-20210318101324973.png)
 
 举例：
 
@@ -273,7 +273,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 
 **吞吐量**：运行用户代码的时间 / （运行用户代码的时间 + 垃圾收集的时间） 
 
-![image-20210318135529319](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318135529319.png)
+![image-20210318135529319](.\picture\image-20210318135529319.png)
 
 对比：图1 暂停时间高（延迟高），吞吐量好。图2 暂停时间低（低延迟），垃圾回收频率高。
 
@@ -290,7 +290,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 
 <span style='color:yellow;background:背景颜色;font-size:18px;font-family:字体;'>答: JVM有不同厂商是实现，在不同的JVM不同的环境下有不同的GC</span>
 
-![image-20210318140551957](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318140551957.png)
+![image-20210318140551957](.\picture\image-20210318140551957.png)
 
 **经典**
 
@@ -300,13 +300,13 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 
 * 并发：CMS, G1 
 
-  ![image-20210318141720216](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318141720216.png)
+  ![image-20210318141720216](.\picture\image-20210318141720216.png)
 
-  ![image-20210318141800356](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318141800356.png)
+  ![image-20210318141800356](.\picture\image-20210318141800356.png)
 
-  ![image-20210318141833893](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318141833893.png)
+  ![image-20210318141833893](.\picture\image-20210318141833893.png)
 
-  ![image-20210318142519072](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318142519072.png)
+  ![image-20210318142519072](.\picture\image-20210318142519072.png)
 
   JDK 8 : 新生代：UseParallelGC，老年代使用 Parallel Old
 
@@ -325,7 +325,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 * 标记-压缩 
 * 与 **Parallel Scavenge 配合使用，作为老年代CMS的备胎（后备方案）**
 
-![image-20210318143347489](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318143347489.png)
+![image-20210318143347489](.\picture\image-20210318143347489.png)
 
 <span style='color:pink'>优点：简单高效</span>
 
@@ -337,7 +337,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 * 复制算法，STW
 * 在Server端， 是默认的新生代。 **老年代可以使用 CMS/ Serial Old**
 
-![image-20210318143714931](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318143714931.png)
+![image-20210318143714931](.\picture\image-20210318143714931.png)
 
 对于新生代：回收次数频繁，并行效率高
 
@@ -354,7 +354,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
   * 采用标记-压缩
   * 使用 STW ，并行回收
 
-![image-20210318144659715](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318144659715.png)
+![image-20210318144659715](.\picture\image-20210318144659715.png)
 
 #### 6、CMS（低延迟）
 
@@ -363,7 +363,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 * 使用 标记-清除， STW
 * CMS 最为老年代收集器，只能和 ParNew 和 Serial 合作。与 Parallel 不兼容。
 
-![image-20210318145356739](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318145356739.png)
+![image-20210318145356739](.\picture\image-20210318145356739.png)
 
 * **初始标记：**STW ----- **仅仅**标记出 GC-roots 直接关联的对象。追求快
 * **并发标记：**从直接关联对象开始遍历整个对象图，整个过程花费时间较长，但不需要停顿用户线程。
@@ -371,7 +371,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 * **并发清除**：释放已死亡的对象，释放空间。 （清除易造成碎片问题，所以后续会采用 Serial Old 作为备选。）
 * <span style="color:pink">总结：因为 STW 花费时间都比较短，最耗时的步骤并发标记，并发清除，并发执行不需要STW，所以CMS追求低延迟</span>
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318150317549.png" alt="image-20210318150317549" style="zoom: 80%;" />
+<img src=".\picture\image-20210318150317549.png" alt="image-20210318150317549" style="zoom: 80%;" />
 
 **缺点：**
 
@@ -396,14 +396,14 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 * **可预测的停顿**： 建立可预测的停顿时间模型，在M毫秒的时间之内，垃圾回收的时间不超过N毫秒  
 * G1 有计划的避免整个Java堆的全区域的垃圾回收，G1跟踪每个Region的大小（回收所得的空间大小，回收所需要的时间），在后台维护一个优先列表，目的在于回收打击最大量的区间。 Garbage First。 
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318205713666.png" alt="image-20210318205713666" style="zoom:67%;" />
+<img src=".\picture\image-20210318205713666.png" alt="image-20210318205713666" style="zoom:67%;" />
 
 **与CMS对比：**
 
 * G1 占用的空间多
 * 小内存CMS优，大内存的6-8 G1优
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318211051260.png" alt="image-20210318211051260" style="zoom:67%;" />
+<img src=".\picture\image-20210318211051260.png" alt="image-20210318211051260" style="zoom:67%;" />
 
 **使用场景**
 
@@ -422,7 +422,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 
   设置H的原因，堆中的大对象会直接分配到老年代，若是个短期的大对象，就容易产生负面影响。若一个H放不下，就寻找连续的H。将H区当作老年代。
 
-  <img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318213920543.png" alt="image-20210318213920543" style="zoom:67%;" />
+  <img src=".\picture\image-20210318213920543.png" alt="image-20210318213920543" style="zoom:67%;" />
 
 ##### 3.过程
 
@@ -431,7 +431,7 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 * 混合回收：标记结束，立马**混合回收，**在混合回收过程中，将老年代存活的对象移动到空闲区，而空闲区会成为新的老年代。（只选择价值高的region）
 * 可能会 Full GC
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318214724833.png" alt="image-20210318214724833" style="zoom: 67%;" />
+<img src=".\picture\image-20210318214724833.png" alt="image-20210318214724833" style="zoom: 67%;" />
 
 **Remember Set**：
 
@@ -464,16 +464,16 @@ GC并行：多条垃圾回收线程并行工作，用户线程处于等待状态
 
 **3. 混合回收**
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318231855047.png" alt="image-20210318231855047" style="zoom: 67%;" />
+<img src=".\picture\image-20210318231855047.png" alt="image-20210318231855047" style="zoom: 67%;" />
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318232008289.png" alt="image-20210318232008289" style="zoom: 67%;" />![image-20210318232241511](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318232241511.png)
+<img src=".\picture\image-20210318232008289.png" alt="image-20210318232008289" style="zoom: 67%;" />![image-20210318232241511](.\picture\image-20210318232241511.png)
 
-![image-20210318232241511](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318232241511.png)
+![image-20210318232241511](.\picture\image-20210318232241511.png)
 
 #### 8、GC回收器总结
 
-![image-20210318232332686](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318232332686.png)
+![image-20210318232332686](.\picture\image-20210318232332686.png)
 
-<img src="D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318232442284.png" alt="image-20210318232442284" style="zoom:67%;" />
+<img src=".\picture\image-20210318232442284.png" alt="image-20210318232442284" style="zoom:67%;" />
 
-![image-20210318232705570](D:\CZY\Young\文档\研究生\learn\JVM\JVM 笔记\picture\image-20210318232705570.png)
+![image-20210318232705570](.\picture\image-20210318232705570.png)
